@@ -17,4 +17,12 @@ class Seat extends Model
     protected $fillable = [
         'screen_id'
     ];
+
+    /**
+     * Get the bookings for the seat
+     */
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
