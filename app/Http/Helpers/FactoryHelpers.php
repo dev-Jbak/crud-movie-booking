@@ -14,15 +14,47 @@ class FactoryHelpers
     /**
      * Generates a showing with fake data 
      * 
+     * @param int $seats
+     * 
+     * @return Showing
+     */
+    public static function generateScreen($seats = 10)
+    {
+        return Screen::factory()
+            ->has(Seat::factory()->count($seats))
+            ->create();
+    }
+
+    /**
+     * Generates a showing with fake data 
+     * 
+     * @return Showing
+     */
+    public static function generateMovie()
+    {
+        return Movie::factory()->create();
+    }
+
+    
+    /**
+     * Generates a Customer with fake data 
+     * 
+     * @return Customer
+     */
+    public static function generateCustomer()
+    {
+        return Customer::factory()->create();
+    }
+
+    /**
+     * Generates a Showing with fake data 
+     * 
      * @return Showing
      */
     public static function generateShowing()
     {
-        $screen = Screen::factory()
-            ->has(Seat::factory()->count(10))
-            ->create();
-
-        $movie = Movie::factory()->create();
+        $screen = self::generateScreen();
+        $movie = self::generateMovie();
 
         return Showing::factory()
             ->for($screen)
@@ -31,7 +63,7 @@ class FactoryHelpers
     }
 
     /**
-     * Generates a showing with fake data 
+     * Generates a Booking with fake data 
      * 
      * @param Showing $showing
      * 
@@ -43,7 +75,7 @@ class FactoryHelpers
             $showing = self::generateShowing();
         }
         
-        $customer = Customer::factory()->create();
+        $customer = self::generateCustomer();
 
         return Booking::factory()
             ->for($customer)
