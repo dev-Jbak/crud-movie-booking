@@ -92,14 +92,18 @@ class BookingController extends Controller
      */
     public function updateBooking(UpdateBookingRequest $request, Booking $booking)
     {
+        if ($request->showing_id) {
+            $booking->showing_id = $request->showing_id;
+            $booking->save();
+        }
+
         if ($request->seat_id) {
             $showing = $booking->showing;
 
             $available_seat_ids = $showing->getAvailableSeatIds();
 
-
             if (!$showing->screen->seats->contains($request->seat_id)) {
-                return ValidationHelpers::getResponse(['The seat does not exist']);
+                return ValidationHelpers::getResponse(['The seat does not exist for the showing']);
             }
 
             if (!$available_seat_ids->contains($request->seat_id)) {
@@ -111,10 +115,6 @@ class BookingController extends Controller
 
         if ($request->customer_id) {
             $booking->customer_id = $request->customer_id;
-        }
-        
-        if ($request->showing_id) {
-            $booking->showing_id = $request->showing_id;
         }
 
         if ($request->reference_id) {

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Showing;
+use App\Models\Customer;
+use App\Models\Seat;
 
 class Booking extends Model
 {
@@ -20,7 +22,7 @@ class Booking extends Model
         'customer_id',
         'showing_id',
         'seat_id',
-        'refernce_id'
+        'reference_id'
     ];
 
     /**
@@ -28,10 +30,22 @@ class Booking extends Model
      */
     public function showing()
     {
-        return $this->hasOne(
-            Showing::class,
-            'id',
-            'showing_id'
-        );
+        return $this->belongsTo(Showing::class);
+    }
+
+    /**
+     * Get the customer for the booking
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * Get the seat for the booking
+     */
+    public function seat()
+    {
+        return $this->belongsTo(Seat::class);
     }
 }
