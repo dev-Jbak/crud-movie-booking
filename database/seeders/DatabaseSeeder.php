@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+
+use App\Http\Helpers\FactoryHelpers;
 use App\Models\Screen;
 use App\Models\Seat;
 use App\Models\Movie;
@@ -19,23 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $screen = Screen::factory()
-            ->has(Seat::factory()->count(10))
-            ->create();
-
-        $movie = Movie::factory()->create();
-
-        $showing = Showing::factory()
-            ->for($screen)
-            ->for($movie)
-            ->create();
-
-        $customer = Customer::factory()->create();
-
-        $booking = Booking::factory()
-            ->for($customer)
-            ->for($screen->seats->first())
-            ->for($showing)
-            ->create();
+        $showing = FactoryHelpers::generateShowing();
+        $booking = FactoryHelpers::generateBooking($showing);
     }
 }
