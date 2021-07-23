@@ -8,6 +8,7 @@ use App\Models\Seat;
 use App\Models\Movie;
 use App\Models\Showing;
 use App\Models\Customer;
+use App\Models\Booking;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,11 +25,17 @@ class DatabaseSeeder extends Seeder
 
         $movie = Movie::factory()->create();
 
-        Showing::factory()
+        $showing = Showing::factory()
             ->for($screen)
             ->for($movie)
             ->create();
 
-        Customer::factory()->create();
+        $customer = Customer::factory()->create();
+
+        $booking = Booking::factory()
+            ->for($customer)
+            ->for($screen->seats->first())
+            ->for($showing)
+            ->create();
     }
 }
