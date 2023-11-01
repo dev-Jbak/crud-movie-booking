@@ -1,10 +1,10 @@
 # Cinema movie booking RESTful API
 
-This is a bare-bones example of a movie booking application providing a REST API to be ablw to create, update, delete and view bookings.
+This is a bare-bones example of a movie booking application providing a REST API to be able to create, update, delete and view bookings.
 
 
 A cinema contains screens with seats, which can have movies played at different showing times.
-Where you book a showing for a movie and the seat allocated automatically if availablity.
+Where you book a showing for a movie and the seat allocated automatically if available.
 
 ### Structure
 
